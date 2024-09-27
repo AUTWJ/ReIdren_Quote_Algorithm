@@ -1,0 +1,59 @@
+# Create Tour class
+class Tour:   
+   def __init__(self, attributes, price):
+      self.attributes = attributes
+      self.price = price
+   
+   def getPrice(self):
+      return self.price
+   
+   def getAttributes(self):
+      return self.attributes
+
+# Import values from form
+orgType = input_data.get('orgType')
+tierType = input_data.get('tierType')
+price = 0
+
+# Determine Tier Type
+if tierType == 'Option One':
+    tierType = '4 to 8 passengers'
+elif tierType == 'Option Two':
+    tierType = '9 to 11 passengers'
+elif tierType == 'Option Three':
+    tierType = '12 to 14 passengers'
+
+# Determine Org Type
+if orgType == 'Option One':
+    orgType = 'Local Community Group'
+elif orgType == 'Option Two':
+    orgType = 'Educational/Non-Profit Group'
+elif orgType == 'Option Three':
+    orgType = 'Corporate Group'
+else:
+    orgType = 'Other'
+
+#Tour Combinations and Prices
+tours = [] 
+tours.append(Tour(["Corporate Group", "4 to 8 passengers"], 800))
+tours.append(Tour(["Corporate Group", "9 to 11 passengers"], 720))
+tours.append(Tour(["Corporate Group", "12 to 14 passengers"], 680))
+
+tours.append(Tour(["Educational/Non-Profit Group", "4 to 8 passengers"], 640))
+tours.append(Tour(["Educational/Non-Profit Group", "9 to 11 passengers"], 608))
+tours.append(Tour(["Educational/Non-Profit Group", "12 to 14 passengers"], 576))
+
+tours.append(Tour(["Local Community Group", "4 to 8 passengers"], 360))
+tours.append(Tour(["Local Community Group", "9 to 11 passengers"], 400))
+tours.append(Tour(["Local Community Group", "12 to 14 passengers"], 380))
+
+# Create Requested Tour
+requestedTour = [orgType, tierType]
+
+# Loop through tour combinations looking for correct tour
+for item in tours:
+   if(requestedTour == item.getAttributes()):
+      price = item.getPrice()
+      break
+
+output = {'tourType': 'Van', 'tierType': tierType, 'orgType': orgType, 'price': price}
