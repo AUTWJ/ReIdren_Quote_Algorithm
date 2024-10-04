@@ -56,8 +56,9 @@ for item in tours:
       price = item.getPrice()
       break
 
-# Get today's date for invoice
-from datetime import date
+# Get today's date and due date for invoice
+from datetime import date, timedelta
 today = str(date.today())
+dueDate = str(date.today() + timedelta(days=10))
 
-output = {'tourType': 'Van', 'tierType': tierType, 'orgType': orgType, 'price': price, 'today': today}
+output = {'tourType': 'Van', 'tierType': tierType, 'orgType': orgType, 'price': price, 'today': today, 'dueDate': dueDate}
