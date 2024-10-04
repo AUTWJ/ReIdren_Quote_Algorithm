@@ -56,4 +56,8 @@ for item in tours:
       price = item.getPrice()
       break
 
-output = {'tourType': 'Walking', 'tierType': tierType, 'orgType': orgType, 'price': price}
+# Get today's date for invoice
+from datetime import date
+today = str(date.today())
+
+output = {'tourType': 'Walking', 'tierType': tierType, 'orgType': orgType, 'price': price, 'today': today}
