@@ -13,6 +13,7 @@ class Tour:
 # Import values from form
 orgType = input_data.get('orgType')
 tierType = input_data.get('tierType')
+tourDescription = input_data.get('tourDescription')
 price = 0
 
 # Determine Tier Type
@@ -32,6 +33,16 @@ elif orgType == 'Option Three':
     orgType = 'Corporate Group'
 else:
     orgType = 'Other'
+
+# Determine Tour Description
+if tourDescription == 'Option One':
+    tourDescription = 'Hidden History of Black Boston (2hr: North End, West End, South End, Roxbury)'
+elif tourDescription == 'Option Two':
+    tourDescription = 'David Walker City (2hr: Roxbury, Dorchester & Mattapan)'
+elif tourDescription == 'Option Three':
+    tourDescription = 'Boston Area Plantations: Parts UnBuilt and Unspoken (2hrs Medford, Cambridge, Roxbury and Dorchester)'
+else:
+    tourDescription = 'Customized'
 
 #Tour Combinations and Prices
 tours = [] 
@@ -61,4 +72,4 @@ from datetime import date, timedelta
 today = str(date.today())
 dueDate = str(date.today() + timedelta(days=10))
 
-output = {'tourType': 'Van', 'tierType': tierType, 'orgType': orgType, 'price': price, 'today': today, 'dueDate': dueDate}
+output = {'tourType': 'Van', 'tierType': tierType, 'orgType': orgType, 'price': price, 'today': today, 'dueDate': dueDate, 'tourDescription': tourDescription}
