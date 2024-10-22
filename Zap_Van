@@ -67,9 +67,12 @@ for item in tours:
       price = item.getPrice()
       break
 
+# Add Wave fee to price
+feePrice = price + (price * (0.029) + 0.6)
+
 # Get today's date and due date for invoice
 from datetime import date, timedelta
 today = str(date.today())
 dueDate = str(date.today() + timedelta(days=10))
 
-output = {'tourType': 'Van', 'tierType': tierType, 'orgType': orgType, 'price': price, 'today': today, 'dueDate': dueDate, 'tourDescription': tourDescription}
+output = {'tourType': 'Van', 'tierType': tierType, 'orgType': orgType, 'price': price, 'feePrice': feePrice, 'today': today, 'dueDate': dueDate, 'tourDescription': tourDescription}
