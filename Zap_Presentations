@@ -13,6 +13,7 @@ class Tour:
 # Import values from form
 orgType = input_data.get('orgType')
 tierType = input_data.get('tierType')
+presentationDescription = input_data.get('presentationDescription')
 price = 0
 
 # Determine Tier Type
@@ -31,6 +32,18 @@ elif orgType == 'Option Two':
 else:
     orgType = 'Other'
 
+# Determine Presentation Description
+if presentationDescription == 'Option One':
+    presentationDescription = 'Hidden History of Black Boston: 400 Years in 90 Minutes'
+elif presentationDescription == 'Option Two':
+    presentationDescription = 'Tracing Our Roots: African-American Genealogy'
+elif presentationDescription == 'Option Three':
+    presentationDescription = 'History of Juneteenth: Freedom Moments in African America'
+elif presentationDescription == 'Option Four':
+    presentationDescription = 'Black History Connections in Kwanzaa'
+else:
+    presentationDescription = 'Custom Topics'
+
 #Tour Combinations and Prices
 tours = [] 
 tours.append(Tour(["Local Community Group/Libraries/Edus/Non-profits", "8 to 25 people"], 450))
@@ -48,9 +61,12 @@ for item in tours:
       price = item.getPrice()
       break
 
+# Add Wave fee to price
+feePrice = price + (price * (0.029) + 0.6)
+
 # Get today's date and due date for invoice
 from datetime import date, timedelta
 today = str(date.today())
 dueDate = str(date.today() + timedelta(days=10))
 
-output = {'tourType': 'Presentation', 'tierType': tierType, 'orgType': orgType, 'price': price, 'today': today, 'dueDate': dueDate}
+output = {'tourType': 'Presentation', 'tierType': tierType, 'orgType': orgType, 'price': price, 'feePrice': feePrice, 'today': today, 'dueDate': dueDate, 'presentationDescription': presentationDescription}
