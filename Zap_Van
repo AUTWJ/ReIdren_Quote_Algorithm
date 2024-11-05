@@ -14,49 +14,27 @@ class Tour:
 orgType = input_data.get('orgType')
 tierType = input_data.get('tierType')
 tourDescription = input_data.get('tourDescription')
+firstRequestedDate = input_data.get('firstRequestedDate')
+secondRequestedDate = input_data.get('secondRequestedDate')
+fullName = input_data.get('fullName')
 price = 0
 
-# Determine Tier Type
-if tierType == 'Option One':
-    tierType = '4 to 8 passengers'
-elif tierType == 'Option Two':
-    tierType = '9 to 11 passengers'
-elif tierType == 'Option Three':
-    tierType = '12 to 14 passengers'
-
-# Determine Org Type
-if orgType == 'Option One':
-    orgType = 'Local Community Group'
-elif orgType == 'Option Two':
-    orgType = 'Educational/Non-Profit Group'
-elif orgType == 'Option Three':
-    orgType = 'Corporate Group'
-else:
-    orgType = 'Other'
-
 # Determine Tour Description
-if tourDescription == 'Option One':
-    tourDescription = 'Hidden History of Black Boston (2hr: North End, West End, South End, Roxbury)'
-elif tourDescription == 'Option Two':
-    tourDescription = 'David Walker City (2hr: Roxbury, Dorchester & Mattapan)'
-elif tourDescription == 'Option Three':
-    tourDescription = 'Boston Area Plantations: Parts UnBuilt and Unspoken (2hrs Medford, Cambridge, Roxbury and Dorchester)'
-else:
-    tourDescription = 'Customized'
+tourDescription = tourDescription[3:]   
 
 #Tour Combinations and Prices
 tours = [] 
-tours.append(Tour(["Corporate Group", "4 to 8 passengers"], 800))
+tours.append(Tour(["Corporate Group", "4 to 8 passengers (Min. 4)"], 800))
 tours.append(Tour(["Corporate Group", "9 to 11 passengers"], 720))
-tours.append(Tour(["Corporate Group", "12 to 14 passengers"], 680))
+tours.append(Tour(["Corporate Group", "12 to 14 passengers (Max. 14)"], 680))
 
-tours.append(Tour(["Educational/Non-Profit Group", "4 to 8 passengers"], 640))
+tours.append(Tour(["Educational/Non-Profit Group", "4 to 8 passengers (Min. 4)"], 640))
 tours.append(Tour(["Educational/Non-Profit Group", "9 to 11 passengers"], 608))
-tours.append(Tour(["Educational/Non-Profit Group", "12 to 14 passengers"], 576))
+tours.append(Tour(["Educational/Non-Profit Group", "12 to 14 passengers (Max. 14)"], 576))
 
-tours.append(Tour(["Local Community Group", "4 to 8 passengers"], 360))
+tours.append(Tour(["Local Community Group", "4 to 8 passengers (Min. 4)"], 360))
 tours.append(Tour(["Local Community Group", "9 to 11 passengers"], 400))
-tours.append(Tour(["Local Community Group", "12 to 14 passengers"], 380))
+tours.append(Tour(["Local Community Group", "12 to 14 passengers (Max. 14)"], 380))
 
 # Create Requested Tour
 requestedTour = [orgType, tierType]
@@ -68,11 +46,33 @@ for item in tours:
       break
 
 # Add Wave fee to price
-feePrice = price + (price * (0.029) + 0.6)
+feePrice = price + (price * (0.029) + 0.60)
+feePrice = round(feePrice, 2)
 
 # Get today's date and due date for invoice
 from datetime import date, timedelta
 today = str(date.today())
 dueDate = str(date.today() + timedelta(days=10))
 
-output = {'tourType': 'Van', 'tierType': tierType, 'orgType': orgType, 'price': price, 'feePrice': feePrice, 'today': today, 'dueDate': dueDate, 'tourDescription': tourDescription}
+# Change format of requested dates to fit Zapier format requirements
+from datetime import datetime
+parsed_date = datetime.strptime(firstRequestedDate, '%m/%d/%Y')
+parsed_date2 = datetime.strptime(secondRequestedDate, '%m/%d/%Y')
+
+# Convert to desired format yyyy-mm-dd
+firstRequestedDate = parsed_date.strftime('%Y-%m-%d')
+new_date = parsed_date + timedelta(days=1)
+firstRequestedDatePlusOne = new_date.strftime('%Y-%m-%d')
+
+secondRequestedDate = parsed_date2.strftime('%Y-%m-%d')
+new_date2 = parsed_date2 + timedelta(days=1)
+secondRequestedDatePlusOne = new_date2.strftime('%Y-%m-%d')
+
+# Parse firstName out of fullName
+firstName = fullName.split()[0] 
+
+# Return Outputs
+output = {'tourType': 'Van', 'tierType': tierType, 'orgType': orgType, 'price': price, 'feePrice': feePrice, 'today': today, 'dueDate': dueDate, 'tourDescription': tourDescription, 'firstRequestedDate': firstRequestedDate, 'firstRequestedDatePlusOne': firstRequestedDatePlusOne, 'secondRequestedDate': secondRequestedDate, 'secondRequestedDatePlusOne': secondRequestedDatePlusOne, 'firstName': firstName}
+ver. 2024-11-05T16:42-9b38ba24
+Van Tour | Zapier
+y': today, 'dueDate': dueDate, 'tourDescription': tourDescription}
